@@ -113,6 +113,8 @@
 \chapter*{Практические задания}
 %\addcontentsline{toc}{chapter}{Введение}
 
+~\
+
 \section*{1. Напишите функцию, которая уменьшает на 10 все числа из списка-аргумента этой функции.}
 
 \begin{lstlisting}
@@ -142,13 +144,28 @@
 \section*{3. Написать функцию, которая по своему списку-аргументу lst определяет, является ли он палиндромом (то есть равны ли lst и reverse(lst)).}
 
 \begin{lstlisting}
+	(defun my_reverse(lst)
+			(reduce #'(lambda (res lst) (cons lst res)) lst :initial-value ()))
 	
+	(defun palindrome(lst)
+			(equal lst (my_reverse lst)))
 \end{lstlisting}
 
-\section*{4. Написать предикат set-eqaul, который возвращает T, если два его множества-аргумента содержат одни и те же элементы, порядок которых не имеет значения.}
+\clearpage
+\section*{4. Написать предикат set-equal, который возвращает T, если два его множества-аргумента содержат одни и те же элементы, порядок которых не имеет значения.}
 
 \begin{lstlisting}
+	(defun in_set(elem src_set) 
+				(reduce #'(lambda (x y) (or x y)) 
+						(mapcar #'(lambda (x) (equal x elem)) src_set) 
+						:initial-value Nil))
 	
+	(defun is_subset(set1 set2)
+				(reduce #'(lambda (x y) (and x y)) 
+						(mapcar #'(lambda (x) (in_set x set2)) set1) :initial-value T))
+	
+	(defun set_equal(set1 set2)
+				(and (is_subset set1 set2) (is_subset set2 set1)))
 \end{lstlisting}
 
 \section*{5. Написать функцию, которая получает как аргумент список чисел, а возвращает список квадратов этих чисел в том же порядке.}

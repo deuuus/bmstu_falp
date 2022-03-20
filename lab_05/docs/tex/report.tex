@@ -1,0 +1,223 @@
+\documentclass[12pt]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+%\usepackage[14pt]{extsizes}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,mathtools} 
+\usepackage{pgfplots}
+\usepackage{filecontents}
+\usepackage{indentfirst}
+\usepackage{eucal}
+\usepackage{float} 
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage[justification=centering]{caption} 
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=newest}
+
+\frenchspacing
+
+\usepackage{indentfirst} % Красная строка
+
+
+%\usetikzlibrary{datavisualization}
+%\usetikzlibrary{datavisualization.formats.functions}
+
+\usepackage{amsmath}
+
+
+% Для листинга кода:
+\lstset{ %
+	language=haskell,                 % выбор языка для подсветки (здесь это С)
+	basicstyle=\small\sffamily, % размер и начертание шрифта для подсветки кода
+	numbers=left,               % где поставить нумерацию строк (слева\справа)
+	numberstyle=\tiny,           % размер шрифта для номеров строк
+	stepnumber=1,                   % размер шага между двумя номерами строк
+	numbersep=5pt,                % как далеко отстоят номера строк от подсвечиваемого кода
+	showspaces=false,            % показывать или нет пробелы специальными отступами
+	showstringspaces=false,      % показывать или нет пробелы в строках
+	showtabs=false,             % показывать или нет табуляцию в строках
+	frame=single,              % рисовать рамку вокруг кода
+	tabsize=2,                 % размер табуляции по умолчанию равен 2 пробелам
+	captionpos=t,              % позиция заголовка вверху [t] или внизу [b] 
+	breaklines=true,           % автоматически переносить строки (да\нет)
+	breakatwhitespace=false, % переносить строки только если есть пробел
+	escapeinside={\#*}{*)}   % если нужно добавить комментарии в коде
+}
+
+\usepackage[left=2cm,right=2cm, top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+
+\usepackage{listings}
+
+\usepackage{titlesec}
+\titleformat{\section}
+{\normalsize\bfseries}
+{\thesection}
+{1em}{}
+\titlespacing*{\chapter}{0pt}{-30pt}{8pt}
+\titlespacing*{\section}{\parindent}{*4}{*4}
+\titlespacing*{\subsection}{\parindent}{*4}{*4}
+\usepackage{setspace}
+
+\titleformat{\chapter}{\LARGE\bfseries}{\thechapter}{20pt}{\large\bfseries}
+\titleformat{\section}{\Large\bfseries}{\thesection}{20pt}{\large\bfseries}
+
+\makeatletter 
+
+\begin{document}
+	
+%\def\chaptername{} % убирает "Глава"
+\thispagestyle{empty}
+\begin{titlepage}
+	\noindent \begin{minipage}{0.15\textwidth}
+		\includegraphics[width=\linewidth]{pics/logo}
+	\end{minipage}
+	\noindent\begin{minipage}{0.9\textwidth}\centering
+		\textbf{Министерство науки и высшего образования Российской Федерации}\\
+		\textbf{Федеральное государственное бюджетное образовательное учреждение высшего образования}\\
+		\textbf{~~~«Московский государственный технический университет имени Н.Э.~Баумана}\\
+		\textbf{(национальный исследовательский университет)»}\\
+		\textbf{(МГТУ им. Н.Э.~Баумана)}
+	\end{minipage}
+	
+	\noindent\rule{18cm}{3pt}
+	\newline\newline
+	\noindent ФАКУЛЬТЕТ $\underline{\text{«Информатика и системы управления»}}$ \newline\newline
+	\noindent КАФЕДРА $\underline{\text{«Программное обеспечение ЭВМ и информационные технологии»}}$\newline\newline\newline\newline\newline
+	
+	
+	\begin{center}
+		\noindent\begin{minipage}{1.3\textwidth}\centering
+			\Large\textbf{  Отчёт по лабораторной работе №5 по курсу}\newline\newline
+			\textbf{<<Функциональное и логическое}\newline
+			\textbf{\indent\indent\indent программирование>>}\newline
+		\end{minipage}
+	\end{center}
+	
+	~\\\\\\\\\\\\
+	\large
+	\noindent\textbf{Тема } $\underline{\text{Использование управляющих структур, работа со списками.}}$\newline\newline
+	\noindent\textbf{Студент } $\underline{\text{Сироткина П.Ю.}}$\newline\newline
+	\noindent\textbf{Группа } $\underline{\text{ИУ7-66Б}}$\newline\newline
+	\noindent\textbf{Преподаватели } $\underline{\text{Толпинская Н.Б., Строганов Ю.В.}}$\newline\newline\newline
+	
+	\begin{center}
+		\vfill
+		Москва~---~\the\year
+		~г.
+	\end{center}
+\end{titlepage}
+
+\chapter*{\Large Практические задания}
+
+~\
+%\addcontentsline{toc}{chapter}{Введение}
+
+\section*{1. Написать функцию, которая по своему списку-аргументу lst определяет, является ли он палиндромом (то есть равны ли lst и reverse(lst)).}
+
+\begin{lstlisting}
+	(defun palindrome(lst) (equal lst (reverse lst)))
+\end{lstlisting}
+
+\section*{2. Написать предикат set-equal, который возвращает T, если два его множества-аргумента содержат одни и те же элементы, порядок которых не имеет значения.}
+
+\begin{lstlisting}
+	(defun set_equal(set1 set2)
+		(and (= (length set1) (length set2))
+			 (every #'(lambda (elem) (member elem set1 :test #'equal)) set2)
+			 (every #'(lambda (elem) (member elem set2 :test #'equal)) set1)))
+\end{lstlisting}
+
+\section*{3. Напишите свои необходимые функции, которые обрабатывают таблицу из 4-х точечных пар: (страна.столица), и возвращает по стране столицу, а по столице - страну.}
+
+\begin{lstlisting}
+	(defun get_country(table capital)
+			(cond ((null table) Nil)
+						((equal (cdar table) capital) (caar table))
+						(T (get_country (cdr table) capital))))
+	
+	(defun get_country(table capital)
+			(car (rassoc capital table)))
+	
+	(defun get_capital(table country)
+			(cond ((null table) Nil)
+						((equal (caar table) country) (cdar table))
+						(T (get_capital (cdr table) country))))
+	
+	(defun get_capital(table country)
+			(cdr (assoc country table)))
+\end{lstlisting}
+
+\clearpage
+
+\section*{4. Напишите функцию swap-first-last, которая переставляет в списке-аргументе первый и последний элементы.}
+
+\begin{lstlisting}
+	(defun swap_first_last(lst)
+		(let ((first_elem (car lst))) 
+					(setf (car lst) (car (last lst)))
+					(setf (car (last lst)) first_elem)
+					lst))
+\end{lstlisting}
+
+\section*{5. Напишите функцию swap-two-element, которая переставляет в списке-аргументе два указанных своими порядковыми номерами элемента в этом списке.}
+
+\begin{lstlisting}
+	(defun swap_two_elements(lst i j)
+			(if (and (< -1 i (length lst)) (< -1 j (length lst)))
+					(let ((i_elem (nth i lst)) (j_elem (nth j lst)))
+							(setf (nth i lst) j_elem) (setf (nth j lst) i_elem) lst)
+					lst))
+\end{lstlisting}
+
+\section*{6. Напишите две функции, swap-to-left и swap-to-right, которые производят одну круговую перестановку в списке-аргументе влево и вправо соответственно.}
+
+\begin{lstlisting}
+	(defun swap_to_left(lst)
+		(cond ((null lst) Nil)
+				(T (append (cdr lst) (cons (car lst) Nil)))))
+	
+	(defun swap_to_right(lst)
+		(cond ((null lst) Nil)
+				(T (cons (car (reverse lst)) (reverse (cdr (reverse lst)))))))
+\end{lstlisting}
+
+\section*{7. Напишите функцию, которая добавляет к множеству двухэлементных списков новый двухэлементный список, если его там нет.}
+
+\begin{lstlisting}
+	(defun add_pair_to_set(src_set pair)
+		(if (not (member pair src_set :test #'equal)) 
+							(append src_set (list pair))
+							 src_set))
+\end{lstlisting}
+
+\section*{8. Напишите функцию, которая умножает на заданное число-аргумент первый числовой элемент списка из заданного 3-х элементного списка-аргумента, когда}
+
+\begin{itemize}
+	\item Все элементы списка -- числа;
+	\item Элементы списка -- любые объекта.
+\end{itemize}
+
+\begin{lstlisting}
+	(defun mul_num(lst multiplier)
+	(mapcar #'(lambda(elem) (* elem multiplier)) lst))
+	
+	(defun mul(lst multiplier)
+		(mapcar #'(lambda (elem)
+													  (cond ((listp elem) (mul (cdr elem) multiplier))
+																	((numberp elem) (* elem multiplier))
+																	(T elem))) lst))
+\end{lstlisting}
+
+\section*{9. Напишите функцию select-between, которая из списка-аргумента из 5 чисел выбирает только те, которые расположены между двумя указанными границами-аргументами и возвращает их в виде списка (упорядоченного по возрастанию списка чисел (+2 балла)).}
+
+\begin{lstlisting}
+	(defun select_between(lst a b)
+			(cond ((null lst) Nil)
+				   ((< a (car lst) b)(cons (car lst)(select_between (cdr lst) a b)))
+				   (T (select_between (cdr lst) a b))))
+\end{lstlisting}
+
+\end{document}

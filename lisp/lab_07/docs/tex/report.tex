@@ -1,0 +1,281 @@
+\documentclass[12pt]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+%\usepackage[14pt]{extsizes}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,mathtools} 
+\usepackage{pgfplots}
+\usepackage{filecontents}
+\usepackage{indentfirst}
+\usepackage{eucal}
+\usepackage{float} 
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage[justification=centering]{caption} 
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=newest}
+
+\frenchspacing
+
+\usepackage{indentfirst} % Красная строка
+
+
+%\usetikzlibrary{datavisualization}
+%\usetikzlibrary{datavisualization.formats.functions}
+
+\usepackage{amsmath}
+
+
+% Для листинга кода:
+\lstset{ %
+	language=haskell,                 % выбор языка для подсветки (здесь это С)
+	basicstyle=\small\sffamily, % размер и начертание шрифта для подсветки кода
+	numbers=left,               % где поставить нумерацию строк (слева\справа)
+	numberstyle=\tiny,           % размер шрифта для номеров строк
+	stepnumber=1,                   % размер шага между двумя номерами строк
+	numbersep=5pt,                % как далеко отстоят номера строк от подсвечиваемого кода
+	showspaces=false,            % показывать или нет пробелы специальными отступами
+	showstringspaces=false,      % показывать или нет пробелы в строках
+	showtabs=false,             % показывать или нет табуляцию в строках
+	frame=single,              % рисовать рамку вокруг кода
+	tabsize=2,                 % размер табуляции по умолчанию равен 2 пробелам
+	captionpos=t,              % позиция заголовка вверху [t] или внизу [b] 
+	breaklines=true,           % автоматически переносить строки (да\нет)
+	breakatwhitespace=false, % переносить строки только если есть пробел
+	escapeinside={\#*}{*)}   % если нужно добавить комментарии в коде
+}
+
+\usepackage[left=2cm,right=2cm, top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+
+\usepackage{listings}
+
+\usepackage{titlesec}
+\titleformat{\section}
+{\normalsize\bfseries}
+{\thesection}
+{1em}{}
+\titlespacing*{\chapter}{0pt}{-30pt}{8pt}
+\titlespacing*{\section}{\parindent}{*4}{*4}
+\titlespacing*{\subsection}{\parindent}{*4}{*4}
+\usepackage{setspace}
+
+\titleformat{\chapter}{\LARGE\bfseries}{\thechapter}{20pt}{\large\bfseries}
+\titleformat{\section}{\Large\bfseries}{\thesection}{20pt}{\large\bfseries}
+
+\makeatletter 
+
+\begin{document}
+	
+%\def\chaptername{} % убирает "Глава"
+\thispagestyle{empty}
+\begin{titlepage}
+	\noindent \begin{minipage}{0.15\textwidth}
+		\includegraphics[width=\linewidth]{pics/logo}
+	\end{minipage}
+	\noindent\begin{minipage}{0.9\textwidth}\centering
+		\textbf{Министерство науки и высшего образования Российской Федерации}\\
+		\textbf{Федеральное государственное бюджетное образовательное учреждение высшего образования}\\
+		\textbf{~~~«Московский государственный технический университет имени Н.Э.~Баумана}\\
+		\textbf{(национальный исследовательский университет)»}\\
+		\textbf{(МГТУ им. Н.Э.~Баумана)}
+	\end{minipage}
+	
+	\noindent\rule{18cm}{3pt}
+	\newline\newline
+	\noindent ФАКУЛЬТЕТ $\underline{\text{«Информатика и системы управления»}}$ \newline\newline
+	\noindent КАФЕДРА $\underline{\text{«Программное обеспечение ЭВМ и информационные технологии»}}$\newline\newline\newline\newline\newline
+	
+	
+	\begin{center}
+		\noindent\begin{minipage}{1.3\textwidth}\centering
+			\Large\textbf{  Отчёт по лабораторной работе №7 по курсу}\newline\newline
+			\textbf{<<Функциональное и логическое}\newline
+			\textbf{\indent\indent\indent программирование>>}\newline
+		\end{minipage}
+	\end{center}
+	
+	~\\\\\\\\\\\\
+	\large
+	\noindent\textbf{Тема } $\underline{\text{Рекурсивные функции.}}$\newline\newline
+	\noindent\textbf{Студент } $\underline{\text{Сироткина П.Ю.}}$\newline\newline
+	\noindent\textbf{Группа } $\underline{\text{ИУ7-66Б}}$\newline\newline
+	\noindent\textbf{Преподаватели } $\underline{\text{Толпинская Н.Б., Строганов Ю.В.}}$\newline\newline\newline
+	
+	\begin{center}
+		\vfill
+		Москва~---~\the\year
+		~г.
+	\end{center}
+\end{titlepage}
+
+\chapter*{Практические задания}
+%\addcontentsline{toc}{chapter}{Введение}
+
+~\
+
+\section*{1. Написать хвостовую рекурсивную функцию my-reverse, которая развернет верхний уровень своего списка-аргумента lst.}
+
+\begin{lstlisting}
+	(defun my_reverse(lst)
+			(move_to lst Nil)
+	)
+	
+	(defun move_to(lst result)
+			(cond
+					((null lst) result)
+					(T (move_to (cdr lst) (cons (car lst) result)))
+			)
+	)
+\end{lstlisting}
+
+\section*{2. Написать функцию, которая возвращает первый элемент списка-аргумента, который сам является непустым списком.}
+
+\begin{lstlisting}
+	(defun first_sublist(lst)
+			(cond 
+					((null lst) Nil)
+					((atom (car lst)) (first_sublist (cdr lst)))
+					(T (caar lst))
+			)
+	)
+\end{lstlisting}
+
+\section*{3. Написать функцию, которая выбирает из заданного списка только те числа, которые больше 1 и меньше 10.}
+
+\begin{lstlisting}
+	(defun select_between(lst)
+			(cond
+					((null lst) Nil)
+					((< 1 (car lst) 10) (cons (car lst) (select_between (cdr lst))))
+					(T (select_between (cdr lst)))
+			)
+	)
+\end{lstlisting}
+
+\section*{4. Напишите рекурсивную функцию, которая умножает на заданное число-аргумент все числа из заданного списка-аргумента, когда: }
+
+\begin{enumerate}
+	\item Все элементы списка -- числа;
+	\item Элементы списка - любые объекты.
+\end{enumerate}
+
+\begin{lstlisting}
+(defun mul_num(lst mul)
+	(cond 
+			((null lst) Nil)
+			(T (cons (* (car lst) mul) (mul_num (cdr lst) mul)))
+	)
+)
+
+(defun mul_all(lst mul)
+	(cond 
+			((null lst) Nil)
+			((numberp (car lst)) (cons (* (car lst) mul) (mul_all(cdr lst) mul)))
+			((atom (car lst)) (cons (car lst) (mul_all (cdr lst) mul)))
+			(T (cons (mul_all (car lst) mul) (mul_all (cdr lst) mul)))
+	)
+)
+\end{lstlisting}
+
+\section*{5. Напишите функцию select-between, которая из списка-аргумента, содержащего только числа, выбирает только те, которые расположены между двумя указанными границами-аргументами и возвращает их в виде списка.}
+
+\begin{lstlisting}
+(defun select_between(lst left right)
+		(cond
+				((null lst) Nil)
+				((< left (car lst) right) 
+									(cons (car lst) (select_between (cdr lst) left right)))
+				(T (select_between (cdr lst) left right))
+		)
+)
+\end{lstlisting}
+
+\clearpage
+\section*{6. Написать рекурсивную версию (с именем rec-add) вычисления суммы чисел заданного списка:}
+
+\begin{enumerate}
+	\item Одноуровнего смешанного;
+	\item Структурированного.
+\end{enumerate}
+
+\begin{lstlisting}
+;1
+(defun rec_add(lst) (helper lst 0))
+
+(defun helper(lst acc)
+		(cond
+				((null lst) acc)
+				((numberp (car lst)) (helper (cdr lst) (+ acc (car lst))))
+				(T (helper (cdr lst) acc))
+		)
+)
+
+;2
+(defun rec_add(lst) (helper lst 0))
+
+(defun helper(lst acc)
+		(cond 
+				((null lst) acc)
+				((numberp (car lst)) (helper (cdr lst) (+ acc (car lst))))
+				((listp (car lst)) (+ (helper (car lst) 0) (helper (cdr lst) acc)))
+				(T (helper (cdr lst) acc))
+		)
+)
+\end{lstlisting}
+
+\section*{7. Написать рекурсивную версию с именем recnth функции nth.}
+
+\begin{lstlisting}
+	(defun recnth(n lst)
+			(cond 
+					((null lst) Nil)
+					((= 0 n) (car lst))
+					(T (recnth (- n 1) (cdr lst)))))
+\end{lstlisting}
+
+
+\section*{8. Написать рекурсивную функцию allodd, которая возвращает t, когда все элементы списка нечетные.}
+
+\begin{lstlisting}
+	(defun allodd(lst)
+			(cond
+					((null lst) T)
+					((oddp (car lst)) (allodd (cdr lst)))
+					(T Nil)
+			)
+	)
+\end{lstlisting}
+
+\section*{9. Написать рекурсивную функцию, которая возвращает первое нечетное число из списка (структурированного), возможно создавая некоторые вспомогательные функции.}
+
+\begin{lstlisting}
+	(defun first_atom(lst)
+			(cond
+					((atom lst) lst)
+					(T (first_atom (car lst)))
+			)
+	)   
+	
+	(defun first_odd(lst)
+			(cond
+					((null lst) Nil)
+					((oddp (first_atom lst)) (first_atom lst))
+					(T (first_odd (cdr lst)))
+			)
+	)
+\end{lstlisting}
+
+\section*{10. Используя cons-дополняемую рекурсию с одним тестом завершения, написать функцию, которая получает как аргумент список чисел, а возвращает список квадратов этих чисел в том же порядке.}
+
+\begin{lstlisting}
+	(defun squares(lst)
+			(cond
+					((null lst) Nil)
+					(T (cons ((lambda (x) (* x x)) (car lst)) (squares (cdr lst))))
+			)
+	)
+\end{lstlisting}
+
+\end{document}

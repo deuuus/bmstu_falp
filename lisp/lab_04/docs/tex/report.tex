@@ -1,0 +1,222 @@
+\documentclass[12pt]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+%\usepackage[14pt]{extsizes}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,mathtools} 
+\usepackage{pgfplots}
+\usepackage{filecontents}
+\usepackage{indentfirst}
+\usepackage{eucal}
+\usepackage{float} 
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage[justification=centering]{caption} 
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=newest}
+
+\frenchspacing
+
+\usepackage{indentfirst} % Красная строка
+
+
+%\usetikzlibrary{datavisualization}
+%\usetikzlibrary{datavisualization.formats.functions}
+
+\usepackage{amsmath}
+
+
+% Для листинга кода:
+\lstset{ %
+	language=haskell,                 % выбор языка для подсветки (здесь это С)
+	basicstyle=\small\sffamily, % размер и начертание шрифта для подсветки кода
+	numbers=left,               % где поставить нумерацию строк (слева\справа)
+	numberstyle=\tiny,           % размер шрифта для номеров строк
+	stepnumber=1,                   % размер шага между двумя номерами строк
+	numbersep=5pt,                % как далеко отстоят номера строк от подсвечиваемого кода
+	showspaces=false,            % показывать или нет пробелы специальными отступами
+	showstringspaces=false,      % показывать или нет пробелы в строках
+	showtabs=false,             % показывать или нет табуляцию в строках
+	frame=single,              % рисовать рамку вокруг кода
+	tabsize=2,                 % размер табуляции по умолчанию равен 2 пробелам
+	captionpos=t,              % позиция заголовка вверху [t] или внизу [b] 
+	breaklines=true,           % автоматически переносить строки (да\нет)
+	breakatwhitespace=false, % переносить строки только если есть пробел
+	escapeinside={\#*}{*)}   % если нужно добавить комментарии в коде
+}
+
+\usepackage[left=2cm,right=2cm, top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+
+\usepackage{listings}
+
+\usepackage{titlesec}
+\titleformat{\section}
+{\normalsize\bfseries}
+{\thesection}
+{1em}{}
+\titlespacing*{\chapter}{0pt}{-30pt}{8pt}
+\titlespacing*{\section}{\parindent}{*4}{*4}
+\titlespacing*{\subsection}{\parindent}{*4}{*4}
+\usepackage{setspace}
+
+\titleformat{\chapter}{\LARGE\bfseries}{\thechapter}{20pt}{\large\bfseries}
+\titleformat{\section}{\Large\bfseries}{\thesection}{20pt}{\large\bfseries}
+
+\makeatletter 
+
+\begin{document}
+	
+%\def\chaptername{} % убирает "Глава"
+\thispagestyle{empty}
+\begin{titlepage}
+	\noindent \begin{minipage}{0.15\textwidth}
+		\includegraphics[width=\linewidth]{pics/logo}
+	\end{minipage}
+	\noindent\begin{minipage}{0.9\textwidth}\centering
+		\textbf{Министерство науки и высшего образования Российской Федерации}\\
+		\textbf{Федеральное государственное бюджетное образовательное учреждение высшего образования}\\
+		\textbf{~~~«Московский государственный технический университет имени Н.Э.~Баумана}\\
+		\textbf{(национальный исследовательский университет)»}\\
+		\textbf{(МГТУ им. Н.Э.~Баумана)}
+	\end{minipage}
+	
+	\noindent\rule{18cm}{3pt}
+	\newline\newline
+	\noindent ФАКУЛЬТЕТ $\underline{\text{«Информатика и системы управления»}}$ \newline\newline
+	\noindent КАФЕДРА $\underline{\text{«Программное обеспечение ЭВМ и информационные технологии»}}$\newline\newline\newline\newline\newline
+	
+	
+	\begin{center}
+		\noindent\begin{minipage}{1.3\textwidth}\centering
+			\Large\textbf{  Отчёт по лабораторной работе №4 по курсу}\newline\newline
+			\textbf{<<Функциональное и логическое}\newline
+			\textbf{\indent\indent\indent программирование>>}\newline
+		\end{minipage}
+	\end{center}
+	
+	~\\\\\\\\\\\\
+	\large
+	\noindent\textbf{Тема } $\underline{\text{Использование управляющих структур, работа со списками.}}$\newline\newline
+	\noindent\textbf{Студент } $\underline{\text{Сироткина П.Ю.}}$\newline\newline
+	\noindent\textbf{Группа } $\underline{\text{ИУ7-66Б}}$\newline\newline
+	\noindent\textbf{Преподаватели } $\underline{\text{Толпинская Н.Б., Строганов Ю.В.}}$\newline\newline\newline
+	
+	\begin{center}
+		\vfill
+		Москва~---~\the\year
+		~г.
+	\end{center}
+\end{titlepage}
+
+\chapter*{Практические задания}
+%\addcontentsline{toc}{chapter}{Введение}
+
+~\
+
+\section*{1. Чем принципиально отличаются функции cons, list, append? Пусть (setf lst1 '(a b)) (setf lst2 '(c d)). Каковы результаты вычисления следующих выражений?}
+
+\begin{lstlisting}
+	(setf lst1 '(a b))
+	(setf lst2 '(c d))
+	(cons lst1 lst2)      ; ((A B) C D)
+	(list lst1 lst2)      ; ((A B) (C D))
+	(append lst1 lst2)    ; (A B C D)
+\end{lstlisting}
+
+\section*{2. Каковы результаты вычисления следующих выражений, и почему?}
+
+\begin{lstlisting}
+	(reverse ())          ; NIL
+	(last ())             ; NIL
+	(reverse '(a))        ; (A)
+	(last '(a))           ; (A)
+	(reverse '((a b c)))  ; ((A B C))
+	(last '((a b c)))     ; ((A B C))
+\end{lstlisting}
+
+\section*{3. Написать по крайней мере два варианта функции, которая возвращает последний элемент своего списка-аргумента.}
+
+\begin{lstlisting}
+	(defun get_last(lst) (last lst))
+\end{lstlisting}
+
+\begin{lstlisting}
+	(defun get_last(lst) (car (reverse lst)))
+\end{lstlisting}
+
+\begin{lstlisting}
+	(defun get_last(lst) (if (cdr lst) (get_last(cdr lst)) (car lst)))
+\end{lstlisting}
+
+\section*{4. Написать по крайней мере два варианта функции, которая возвращает свой список-аргумент без последнего элемента.}
+
+\begin{lstlisting}
+	(defun but_last(lst) (reverse (cdr (reverse lst))))
+\end{lstlisting}
+
+\begin{lstlisting}
+	(defun but_last(lst) 
+			(if (cdr lst)) (cons (car lst) (del_last (cdr lst))) Nil)
+\end{lstlisting}
+
+\section*{5. Написать простой вариант игры в кости.}
+
+Написать простой вариант игры в кости, в котором бросаются две правильные кости. Если сумма выпавших очков равна 7 или 11 -- выигрыш, если выпало (1, 1) или (6, 6) -- игрок в праве снова бросить кости, во всех остальных случаях ход переходит ко второму игроку, но запоминается сумма выпавших очков. Если второй игрок не выигрывает абсолютно, то выигрывает тот игрок, у которого больше очков. Результат игры и значения выпавших костей выводить на экран с помощью функции print.
+
+\begin{lstlisting}
+(setf *random-state* (make-random-state t))
+
+(defun roll_dices()
+		(list (+ (random 6) 1) (+ (random 6) 1)))
+
+(defun sum_points(dices)
+		(+ (first dices) (second dices)))
+
+(defun abs_winnerp(dices)
+		(or (= (sum_points dices) 7) (= (sum_points dices) 11)))
+
+(defun rerollp(dices)
+		(or (= (sum_points dices) 2) (= (sum_points dices) 12)))
+
+(defun define_winner(fdices sdices)
+		(let ((fsum (sum_points fdices))
+			     (ssum (sum_points sdices)))
+						(cond 
+								((abs_winnerp fdices) 1)
+								((abs_winnerp sdices) 2)
+								(T (cond 
+											((= fsum ssum) 0)
+											((> fsum ssum) 1)
+											(T 2))))))
+
+(defun play()
+		(let* ((fdices (roll_dices))
+					(sdices (roll_dices)))
+				
+				(print 'Player_1) 
+				(print fdices)
+				(terpri)
+				
+				(print 'Check_reroll)
+				
+				(if (rerollp fdices) 
+						(progn (setq fdices (roll_dices))(print 'True.)(print 'Player_1)(print fdices) (terpri)) 
+						(progn (print 'False.) (terpri)))
+				
+				(print 'Player_2) 
+				(print sdices)
+				(terpri)
+				
+				(let ((res (define_winner fdices sdices)))
+						(cond 
+								((= res 0) (print 'Draw.))
+								((= res 1) (print 'Player_1_WIN))
+								(T (print 'Player_2_WIN))))
+				(terpri)))
+
+(play)
+\end{lstlisting}
+
+\end{document}

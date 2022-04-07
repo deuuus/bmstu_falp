@@ -1,0 +1,209 @@
+\documentclass[12pt]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+%\usepackage[14pt]{extsizes}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,mathtools} 
+\usepackage{pgfplots}
+\usepackage{filecontents}
+\usepackage{indentfirst}
+\usepackage{eucal}
+\usepackage{float} 
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage[justification=centering]{caption} 
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=newest}
+
+\frenchspacing
+
+\usepackage{indentfirst} % Красная строка
+
+
+%\usetikzlibrary{datavisualization}
+%\usetikzlibrary{datavisualization.formats.functions}
+
+\usepackage{amsmath}
+
+
+% Для листинга кода:
+\lstset{ %
+	language=haskell,                 % выбор языка для подсветки (здесь это С)
+	basicstyle=\small\sffamily, % размер и начертание шрифта для подсветки кода
+	numbers=left,               % где поставить нумерацию строк (слева\справа)
+	numberstyle=\tiny,           % размер шрифта для номеров строк
+	stepnumber=1,                   % размер шага между двумя номерами строк
+	numbersep=5pt,                % как далеко отстоят номера строк от подсвечиваемого кода
+	showspaces=false,            % показывать или нет пробелы специальными отступами
+	showstringspaces=false,      % показывать или нет пробелы в строках
+	showtabs=false,             % показывать или нет табуляцию в строках
+	frame=single,              % рисовать рамку вокруг кода
+	tabsize=2,                 % размер табуляции по умолчанию равен 2 пробелам
+	captionpos=t,              % позиция заголовка вверху [t] или внизу [b] 
+	breaklines=true,           % автоматически переносить строки (да\нет)
+	breakatwhitespace=false, % переносить строки только если есть пробел
+	escapeinside={\#*}{*)}   % если нужно добавить комментарии в коде
+}
+
+\usepackage[left=2cm,right=2cm, top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+
+\usepackage{listings}
+
+\usepackage{titlesec}
+\titleformat{\section}
+{\normalsize\bfseries}
+{\thesection}
+{1em}{}
+\titlespacing*{\chapter}{0pt}{-30pt}{8pt}
+\titlespacing*{\section}{\parindent}{*4}{*4}
+\titlespacing*{\subsection}{\parindent}{*4}{*4}
+\usepackage{setspace}
+
+\titleformat{\chapter}{\LARGE\bfseries}{\thechapter}{20pt}{\large\bfseries}
+\titleformat{\section}{\Large\bfseries}{\thesection}{20pt}{\large\bfseries}
+
+\makeatletter 
+
+\begin{document}
+	
+%\def\chaptername{} % убирает "Глава"
+\thispagestyle{empty}
+\begin{titlepage}
+	\noindent \begin{minipage}{0.15\textwidth}
+		\includegraphics[width=\linewidth]{pics/logo}
+	\end{minipage}
+	\noindent\begin{minipage}{0.9\textwidth}\centering
+		\textbf{Министерство науки и высшего образования Российской Федерации}\\
+		\textbf{Федеральное государственное бюджетное образовательное учреждение высшего образования}\\
+		\textbf{~~~«Московский государственный технический университет имени Н.Э.~Баумана}\\
+		\textbf{(национальный исследовательский университет)»}\\
+		\textbf{(МГТУ им. Н.Э.~Баумана)}
+	\end{minipage}
+	
+	\noindent\rule{18cm}{3pt}
+	\newline\newline
+	\noindent ФАКУЛЬТЕТ $\underline{\text{«Информатика и системы управления»}}$ \newline\newline
+	\noindent КАФЕДРА $\underline{\text{«Программное обеспечение ЭВМ и информационные технологии»}}$\newline\newline\newline\newline\newline
+	
+	
+	\begin{center}
+		\noindent\begin{minipage}{1.3\textwidth}\centering
+			\Large\textbf{  Отчёт по лабораторной работе №6 по курсу}\newline\newline
+			\textbf{<<Функциональное и логическое}\newline
+			\textbf{\indent\indent\indent программирование>>}\newline
+		\end{minipage}
+	\end{center}
+	
+	~\\\\\\\\\\\\
+	\large
+	\noindent\textbf{Тема } $\underline{\text{Использование функционалов.}}$\newline\newline
+	\noindent\textbf{Студент } $\underline{\text{Сироткина П.Ю.}}$\newline\newline
+	\noindent\textbf{Группа } $\underline{\text{ИУ7-66Б}}$\newline\newline
+	\noindent\textbf{Преподаватели } $\underline{\text{Толпинская Н.Б., Строганов Ю.В.}}$\newline\newline\newline
+	
+	\begin{center}
+		\vfill
+		Москва~---~\the\year
+		~г.
+	\end{center}
+\end{titlepage}
+
+\chapter*{Практические задания}
+%\addcontentsline{toc}{chapter}{Введение}
+
+~\
+
+\section*{1. Напишите функцию, которая уменьшает на 10 все числа из списка-аргумента этой функции.}
+
+\begin{lstlisting}
+	(defun dec_10(lst) 
+				(mapcar #'(lambda (elem) 
+											(cond ((numberp elem) (- elem 10)) (T elem))) lst))
+\end{lstlisting}
+
+\section*{2. Напишите функцию, которая умножает на заданное число-аргумент все числа из заданного списка-аргумента, когда:}
+
+\begin{enumerate}
+	\item Все элементы списка -- числа;
+	\item Элементы списка -- любые объекты.
+\end{enumerate}
+
+\begin{lstlisting}
+	(defun mul_num(lst multiplier)
+			(mapcar #'(lambda(elem) (* elem multiplier)) lst))
+	
+	(defun mul(lst multiplier)
+			(mapcar #'(lambda (elem)
+														(cond ((listp elem) (mul (cdr elem) multiplier))
+														((numberp elem) (* elem multiplier))
+														(T elem))) lst))
+\end{lstlisting}
+
+\section*{3. Написать функцию, которая по своему списку-аргументу lst определяет, является ли он палиндромом (то есть равны ли lst и reverse(lst)).}
+
+\begin{lstlisting}
+	(defun my_reverse(lst)
+			(reduce #'(lambda (res lst) (cons lst res)) lst :initial-value ()))
+	
+	(defun palindrome(lst)
+			(equal lst (my_reverse lst)))
+\end{lstlisting}
+
+\clearpage
+\section*{4. Написать предикат set-equal, который возвращает T, если два его множества-аргумента содержат одни и те же элементы, порядок которых не имеет значения.}
+
+\begin{lstlisting}
+	(defun in_set(elem src_set) 
+				(reduce #'(lambda (x y) (or x y)) 
+						(mapcar #'(lambda (x) (equal x elem)) src_set) 
+						:initial-value Nil))
+	
+	(defun is_subset(set1 set2)
+				(reduce #'(lambda (x y) (and x y)) 
+						(mapcar #'(lambda (x) (in_set x set2)) set1) :initial-value T))
+	
+	(defun set_equal(set1 set2)
+				(and (is_subset set1 set2) (is_subset set2 set1)))
+\end{lstlisting}
+
+\section*{5. Написать функцию, которая получает как аргумент список чисел, а возвращает список квадратов этих чисел в том же порядке.}
+
+\begin{lstlisting}
+	(defun make_squares(lst) (mapcar #'(lambda (elem) (* elem elem)) lst))
+\end{lstlisting}
+
+\section*{6. Написать функцию select-between, которая из списка-аргумента, содержащего только числа, выбирает только те, которые расположены между двумя указанными границами-аргументами и возвращает их в виде списка (упорядоченного по возрастанию списка чисел (+ 2 балла)).}
+
+\begin{lstlisting}
+	(defun select_between(lst left right)
+			(sort (reduce #'(lambda (res_lst elem) 
+								(if (< left elem right) (cons elem res_lst) res_lst)) 
+												lst :initial-value ()) #'<))
+\end{lstlisting}
+
+\section*{7. Написать функцию, вычисляющую декартово произведение двух своих списков-аргументов.}
+
+\begin{lstlisting}
+(defun decart(lst_x lst_y)
+		   (mapcan #'(lambda(x) (mapcar #'(lambda(y) (list x y)) lst_y)) lst_x))
+\end{lstlisting}
+
+\section*{8. Почему так реализовано reduce, в чем причина?}
+
+\begin{lstlisting}
+	(reduce #'+ 0) -> 0
+	(reduce #'+ ()) -> 0
+\end{lstlisting}
+
+Начальный результат работы функционала \textbf{reduce} - т.н. нейтральный. Для операции сумма нейтральным элементом является 0. 
+
+\section*{9. Пусть list-of-list список, состоящий из списков. Написать функцию, которая вычисляет сумму длин всех элементов list-of-list.}
+
+\begin{lstlisting}
+(defun sum_lengths(lol) 
+    (reduce #'(lambda(cur_sum lst) (+ cur_sum (length lst))) (cons 0 lol)))
+\end{lstlisting}
+
+\end{document}

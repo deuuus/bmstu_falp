@@ -1,0 +1,177 @@
+\documentclass[12pt,a4paper]{scrreprt}
+
+\include{preambule.inc}
+
+\begin{document}
+	
+%\def\chaptername{} % убирает "Глава"
+\thispagestyle{empty}
+\begin{titlepage}
+	\normalsize
+	\noindent \begin{minipage}{0.15\textwidth}
+		\includegraphics[width=\linewidth]{pics/logo}
+	\end{minipage}
+	\noindent\begin{minipage}{0.9\textwidth}\centering
+		\textbf{Министерство науки и высшего образования Российской Федерации}\\
+		\textbf{Федеральное государственное бюджетное образовательное учреждение высшего образования}\\
+		\textbf{~~~«Московский государственный технический университет имени Н.Э.~Баумана}\\
+		\textbf{(национальный исследовательский университет)»}\\
+		\textbf{(МГТУ им. Н.Э.~Баумана)}
+	\end{minipage}
+	
+	\noindent\rule{17cm}{3pt}
+	\newline
+	\noindent ФАКУЛЬТЕТ $\underline{\text{«Информатика и системы управления»}}$ \newline
+	\noindent КАФЕДРА $\underline{\text{«Программное обеспечение ЭВМ и информационные технологии»}}$\newline\newline\newline\newline\newline
+	
+	\begin{center}
+		\noindent\begin{minipage}{1.3\textwidth}\centering
+			\Large\textbf{  Отчёт по лабораторной работе №13}\newline
+			\textbf{по курсу}\newline
+			\textbf{<<Функциональное и логическое}\newline
+			\textbf{\indent\indent\indent программирование>>}\newline
+		\end{minipage}
+	\end{center}
+	
+	~\\\\\\\\\\\\\\
+	\normalsize
+	\noindent\textbf{Тема } $\underline{\text{Структура программы на Prolog и ее реализация}}$\newline\newline
+	\noindent\textbf{Студент } $\underline{\text{Сироткина П.Ю.}}$\newline\newline
+	\noindent\textbf{Группа } $\underline{\text{ИУ7-66Б}}$\newline\newline
+	\noindent\textbf{Преподаватели } $\underline{\text{Толпинская Н.Б., Строганов Ю.В.}}$\newline
+	
+	\begin{center}
+		\vfill
+		Москва~---~\the\year
+		~г.
+	\end{center}
+\end{titlepage}
+
+\chapter*{Лабораторная работа №13}
+
+Создать базу знаний «Собственники», дополнив (и минимально изменив) базу
+знаний, хранящую знания (лаб. 12):
+
+\begin{itemize}
+	\item \textbf{«Телефонный справочник»}: Фамилия, № телефона, Адрес – структура (Город,
+	Улица, № дома, № кв);
+	\item \textbf{«Автомобили»}: Фамилия\_владельца, Марка, Цвет, Стоимость, и др.;
+	\item \textbf{«Вкладчики банков»}: Фамилия, Банк, счет, сумма, др.,
+	знаниями о дополнительной собственности владельца. Преобразовать знания об
+	автомобиле к форме знаний о собственности.
+\end{itemize}
+
+Вид собственности (кроме автомобиля):
+
+\begin{itemize}
+	\item \textbf{Строение}, стоимость и другие его характеристики;
+	\item \textbf{Участок}, стоимость и другие его характеристики;
+	\item \textbf{Водный\_транспорт}, стоимость и другие его характеристики.
+\end{itemize}
+
+Описать и использовать вариантный домен: \textbf{Собственность}. Владелец может иметь,
+но только один объект каждого вида собственности (это касается и автомобиля), или не
+иметь некоторых видов собственности.
+
+Используя конъюнктивное правило и разные формы задания одного вопроса (пояснять для какого № задания – какой вопрос), обеспечить возможность поиска:
+
+\begin{enumerate}
+	\item Названий всех объектов собственности заданного субъекта.
+	\item Названий и стоимости всех объектов собственности заданного субъекта.
+	\item * Разработать правило, позволяющее найти суммарную стоимость всех
+	объектов собственности заданного субъекта.
+\end{enumerate}
+
+Для 2-го пункта и одной фамилии Nсоставить таблицу, отражающую конкретный порядок работы системы, с объяснениями порядка работы и особенностей использования доменов (указать конкретные Т1 и Т2 и полную подстановку на каждом шаге).
+
+\clearpage
+\begin{lstlisting}
+domains
+		surname, phone = symbol.
+		city, street = symbol.
+		house, flat = integer.
+		address = address_struct(city, street, house, flat)
+		mark, color = symbol.
+		cost = integer.
+		bank = symbol.
+		account, sum = integer.
+		
+		area = integer.
+		
+		property = building(cost, address); 
+		land(cost, area); 
+		water_transport(cost, mark, color); 
+		car(cost, mark, color).
+
+predicates
+		has_phone(surname, phone, address).
+		has_deposite(surname, bank, account, sum).
+		
+		own(surname, property).
+		
+		person_property(surname, symbol).
+		person_property_and_cost(surname, symbol, cost).
+		
+		sum(surname, cost).
+		if_has_property(surname, symbol, cost).
+
+clauses
+		has_phone(petrov, "111", address_struct(moscow, lenina, 1, 1)).
+		has_phone(ivanov, "222", address_struct(vladimir, lomonosova, 2, 2)).
+		has_phone(fedorov, "333", address_struct(tver, gagarina, 3, 3)).
+		
+		has_deposite(petrov, alpha, 0, 1000).
+		has_deposite(ivanov, beta, 1, 2000).
+		has_deposite(fedorov, gamma, 2, 1500).
+		
+		own(petrov, building(1000, address_struct(moscow, lenina, 1, 1))).
+		own(petrov, water_transport(300, aqua, purple)).
+		
+		own(ivanov, land(2000, 40)).
+		own(ivanov, car(300, bmw, black)).
+		
+		own(fedorov, building(2000, address_struct(tver, gagarina, 3, 3))).
+		own(fedorov, land(500, 25)).
+		own(fedorov, water_transport(200, aqua, white)).
+		own(fedorov, car(1500, audi, white)).
+		
+		person_property(Surname, building) :- own(Surname, building(_, _)).
+		person_property(Surname, land) :- own(Surname, land(_, _)).
+		person_property(Surname, water_transport) :- own(Surname, water_transport(_, _, _)).
+		person_property(Surname, car) :- own(Surname, car(_, _, _)).
+		
+		person_property_and_cost(Surname, building, Cost) :- own(Surname, building(Cost, _)).
+		person_property_and_cost(Surname, land, Cost) :- own(Surname, land(Cost, _)).
+		person_property_and_cost(Surname, water_transport, Cost) :- own(Surname, water_transport(Cost, _, _)).
+		person_property_and_cost(Surname, car, Cost) :- own(Surname, car(Cost, _, _)).
+		
+		if_has_property(Surname, building, Cost) :- own(Surname, building(Cost, _)), !.
+		if_has_property(Surname, land, Cost) :- own(Surname, land(Cost, _)), !.
+		if_has_property(Surname, water_transport, Cost) :- own(Surname, water_transport(Cost, _, _)), !.
+		if_has_property(Surname, car, Cost) :- own(Surname, car(Cost, _, _)), !.
+		if_has_property(_, _, 0).
+		
+		sum(Surname, Total_sum) :- if_has_property(Surname, building, Building_cost), 
+		if_has_property(Surname, land, Land_cost),
+		if_has_property(Surname, water_transport, Water_transport_cost),
+		if_has_property(Surname, car, Car_cost),
+		Total_sum = Building_cost + Land_cost + Water_transport_cost + Car_cost.
+
+goal
+		%person_property(petrov, Object).
+		%persin_property_and_cost(petrov, Object, Cost).
+		%sum("Petrov", Total_sum).
+		person_property_and_cost(ivanov, Object, Cost).
+\end{lstlisting}
+
+%\clearpage
+%\begin{figure}[!h]
+%	\center{\includegraphics[scale=0.76]{pics/13_1.jpg}}
+%\end{figure}
+%
+%\clearpage
+%\begin{figure}[!h]
+%	\center{\includegraphics[scale=0.76]{pics/13_2.jpg}}
+%\end{figure}
+
+\end{document}

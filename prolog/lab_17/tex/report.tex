@@ -1,0 +1,105 @@
+\documentclass[12pt,a4paper]{scrreprt}
+
+\include{preambule.inc}
+
+\begin{document}
+	
+	%\def\chaptername{} % убирает "Глава"
+	\thispagestyle{empty}
+	\begin{titlepage}
+		\normalsize
+		\noindent \begin{minipage}{0.15\textwidth}
+			\includegraphics[width=\linewidth]{pics/logo}
+		\end{minipage}
+		\noindent\begin{minipage}{0.9\textwidth}\centering
+			\textbf{Министерство науки и высшего образования Российской Федерации}\\
+			\textbf{Федеральное государственное бюджетное образовательное учреждение высшего образования}\\
+			\textbf{~~~«Московский государственный технический университет имени Н.Э.~Баумана}\\
+			\textbf{(национальный исследовательский университет)»}\\
+			\textbf{(МГТУ им. Н.Э.~Баумана)}
+		\end{minipage}
+		
+		\noindent\rule{17cm}{3pt}
+		\newline
+		\noindent ФАКУЛЬТЕТ $\underline{\text{«Информатика и системы управления»}}$ \newline
+		\noindent КАФЕДРА $\underline{\text{«Программное обеспечение ЭВМ и информационные технологии»}}$\newline\newline\newline\newline\newline
+		
+		\begin{center}
+			\noindent\begin{minipage}{1.3\textwidth}\centering
+				\Large\textbf{  Отчёт по лабораторной работе №17}\newline
+				\textbf{по курсу}\newline
+				\textbf{<<Функциональное и логическое}\newline
+				\textbf{\indent\indent\indent программирование>>}\newline
+			\end{minipage}
+		\end{center}
+		
+		~\\\\\\\\\\\\\\
+		\normalsize
+		\noindent\textbf{Тема } $\underline{\text{Обработка списков на Prolog}}$\newline\newline
+		\noindent\textbf{Студент } $\underline{\text{Сироткина П.Ю.}}$\newline\newline
+		\noindent\textbf{Группа } $\underline{\text{ИУ7-66Б}}$\newline\newline
+		\noindent\textbf{Преподаватели } $\underline{\text{Толпинская Н.Б., Строганов Ю.В.}}$\newline
+		
+		\begin{center}
+			\vfill
+			Москва~---~\the\year
+			~г.
+		\end{center}
+	\end{titlepage}
+	
+\chapter*{Лабораторная работа №17}
+
+Используя хвостовую рекурсию, разработать эффективную программу, (комментируя назначение аргументов), позволяющую:
+
+\begin{enumerate}
+	\item Найти длину списка (по верхнему уровню).
+	\item Найти сумму элементов числового списка.
+	\item Найти сумму элементов числового списка, стоящих на нечетных позициях
+	исходного списка (нумерация от 0).
+\end{enumerate}
+
+Убедиться в правильности результатов.
+
+Для одного из вариантов ВОПРОСА и одного из заданий составить таблицу, отражающую конкретный порядок работы системы.
+
+\begin{lstlisting}
+domains
+		list = integer*.
+		num = integer.
+	
+	
+predicates
+		list_len(list, num).
+		list_len_helper(list, num, num).
+		
+		list_sum(list, num).
+		list_sum_helper(list, num, num).
+		
+		list_odd_pos_sum(list, num).
+		list_odd_pos_sum_helper(list, num, num).
+	
+clauses
+		list_len(List, Res) :- list_len_helper(List, Res, 0).
+		
+		list_len_helper([], Res, Acc) :- Res = Acc, !.
+		list_len_helper([_|T], Res, Acc) :- NewAcc = Acc + 1, list_len_helper(T, Res, NewAcc).
+		
+		list_sum(List, Res) :- list_sum_helper(List, Res, 0).
+		
+		list_sum_helper([], Res, Acc) :- Res = Acc, !.
+		list_sum_helper([H|T], Res, Acc) :- NewAcc = H + Acc, list_sum_helper(T, Res, NewAcc).
+		
+		list_odd_pos_sum(List, Res) :- list_odd_pos_sum_helper(List, Res, 0).
+		
+		list_odd_pos_sum_helper([], Res, Acc) :- Res = Acc, !.
+		list_odd_pos_sum_helper([_|[M|T]], Res, Acc) :- NewAcc = Acc + M, list_odd_pos_sum_helper(T, Res, NewAcc), !.
+		list_odd_pos_sum_helper([_|_], Res, Acc) :- Res = Acc.
+	
+goal
+		%list_len([], Res).
+		%list_len([1, 2, 3], Res).
+		%list_sum([1, 2, 3], Res).
+		list_odd_pos_sum([1, 2, 3, 4, 5, 6], Res).
+\end{lstlisting}
+	
+\end{document}

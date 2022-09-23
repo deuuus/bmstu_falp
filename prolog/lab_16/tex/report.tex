@@ -1,0 +1,90 @@
+\documentclass[12pt,a4paper]{scrreprt}
+
+\include{preambule.inc}
+
+\begin{document}
+	
+	%\def\chaptername{} % убирает "Глава"
+	\thispagestyle{empty}
+	\begin{titlepage}
+		\normalsize
+		\noindent \begin{minipage}{0.15\textwidth}
+			\includegraphics[width=\linewidth]{pics/logo}
+		\end{minipage}
+		\noindent\begin{minipage}{0.9\textwidth}\centering
+			\textbf{Министерство науки и высшего образования Российской Федерации}\\
+			\textbf{Федеральное государственное бюджетное образовательное учреждение высшего образования}\\
+			\textbf{~~~«Московский государственный технический университет имени Н.Э.~Баумана}\\
+			\textbf{(национальный исследовательский университет)»}\\
+			\textbf{(МГТУ им. Н.Э.~Баумана)}
+		\end{minipage}
+		
+		\noindent\rule{17cm}{3pt}
+		\newline
+		\noindent ФАКУЛЬТЕТ $\underline{\text{«Информатика и системы управления»}}$ \newline
+		\noindent КАФЕДРА $\underline{\text{«Программное обеспечение ЭВМ и информационные технологии»}}$\newline\newline\newline\newline\newline
+		
+		\begin{center}
+			\noindent\begin{minipage}{1.3\textwidth}\centering
+				\Large\textbf{  Отчёт по лабораторной работе №16}\newline
+				\textbf{по курсу}\newline
+				\textbf{<<Функциональное и логическое}\newline
+				\textbf{\indent\indent\indent программирование>>}\newline
+			\end{minipage}
+		\end{center}
+		
+		~\\\\\\\\\\\\\\
+		\normalsize
+		\noindent\textbf{Тема } $\underline{\text{Рекурсия на Prolog}}$\newline\newline
+		\noindent\textbf{Студент } $\underline{\text{Сироткина П.Ю.}}$\newline\newline
+		\noindent\textbf{Группа } $\underline{\text{ИУ7-66Б}}$\newline\newline
+		\noindent\textbf{Преподаватели } $\underline{\text{Толпинская Н.Б., Строганов Ю.В.}}$\newline
+		
+		\begin{center}
+			\vfill
+			Москва~---~\the\year
+			~г.
+		\end{center}
+	\end{titlepage}
+	
+\chapter*{Лабораторная работа №16}
+
+Используя хвостовую рекурсию, разработать программу, позволяющую найти:
+
+\begin{enumerate}
+	\item n!.
+	\item n-ое число Фибоначии.
+\end{enumerate}
+
+Убедиться в правильности результатов.
+
+Для одного из вариантов ВОПРОСА и каждого задания составить таблицу, отражающую конкретный порядок работы системы.
+
+\begin{lstlisting}
+domains
+		num = integer.
+
+predicates
+		factorial(num, num).
+		factorial_helper(num, num, num).
+		fib_helper(num, num, num, num).
+		fib(num, num).
+
+clauses
+		factorial(N, Res) :- factorial_helper(N, Res, 1).
+		
+		factorial_helper(N, Res, Acc) :- N <= 1, Res = Acc, !.
+		factorial_helper(N, Res, Acc) :- NewAcc = Acc * N, NewN = N - 1, factorial_helper(NewN, Res, NewAcc).
+		
+		fib(N, Res) :- fib_helper(N, 1, Res, 1).
+		
+		fib_helper(N, _, Res, Acc) :- N <= 2, Res = Acc, !.
+		fib_helper(N, PrevAcc, Res, Acc) :- NewN = N - 1, NewAcc = PrevAcc + Acc,
+		fib_helper(NewN, Acc, Res, NewAcc).
+
+goal
+		%factorial(5, Res).
+		fib(12, Res).
+\end{lstlisting}
+	
+\end{document}

@@ -1,0 +1,233 @@
+\usepackage{cmap}
+\usepackage[T1]{fontenc} 
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage[normalem]{ulem}
+
+%\usepackage{soulutf8}
+
+\usepackage{float}
+
+\usepackage{enumitem}
+
+\usepackage{graphicx}
+\usepackage{multirow}
+
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=newest}
+\usepgfplotslibrary{units}
+
+
+\usepackage{caption}
+\captionsetup{labelsep=endash}
+\captionsetup[figure]{name={Рисунок}}
+\captionsetup[subfigure]{name={Рисунок}}
+\captionsetup[subtable]{labelformat=simple}
+\captionsetup[subfigure]{labelformat=simple}
+\renewcommand{\thesubtable}{\text{Таблица }\arabic{chapter}\text{.}\arabic{table}\text{.}\arabic{subtable}\text{ --}}
+%\renewcommand{\thesubfigure}{\arabic{chapter}\text{.}\arabic{figure}\text{.}\azbuk{\subfigure}\text{ --}}
+
+
+\usepackage{textcomp}
+\usepackage{chngcntr}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{array}
+
+\usepackage{geometry}
+\geometry{left=20mm}
+\geometry{right=10mm}
+\geometry{top=20mm}
+\geometry{bottom=20mm}
+\geometry{foot=1.7cm}
+
+\usepackage{listings}
+\lstset{ %
+	language=haskell,                 % выбор языка для подсветки (здесь это С)
+	basicstyle=\small\sffamily, % размер и начертание шрифта для подсветки кода
+	numbers=left,               % где поставить нумерацию строк (слева\справа)
+	numberstyle=\tiny,           % размер шрифта для номеров строк
+	stepnumber=1,                   % размер шага между двумя номерами строк
+	numbersep=5pt,                % как далеко отстоят номера строк от подсвечиваемого кода
+	showspaces=false,            % показывать или нет пробелы специальными отступами
+	showstringspaces=false,      % показывать или нет пробелы в строках
+	showtabs=false,             % показывать или нет табуляцию в строках
+	frame=single,              % рисовать рамку вокруг кода
+	tabsize=2,                 % размер табуляции по умолчанию равен 2 пробелам
+	captionpos=t,              % позиция заголовка вверху [t] или внизу [b] 
+	breaklines=true,           % автоматически переносить строки (да\нет)
+	breakatwhitespace=false, % переносить строки только если есть пробел
+	escapeinside={\#*}{*)}   % если нужно добавить комментарии в коде
+}
+
+
+\usepackage{titlesec}
+\titleformat{\section}
+{\normalsize\bfseries}
+{\thesection}
+{1em}{}
+\titlespacing*{\chapter}{0pt}{-30pt}{8pt}
+\titlespacing*{\section}{\parindent}{*4}{*4}
+\titlespacing*{\subsection}{\parindent}{*4}{*4}
+\titlespacing*{\subsubsection}{\parindent}{*4}{*4}
+
+%\renewcommand\thesubfloat{(\roman{subfloat})}
+\renewcommand\thesubfigure{(\asbuk{subfigure})}
+
+% Маркировка для списков
+\def\labelitemi{$\circ$}
+\def\labelitemii{$*$}
+\usepackage{pdflscape}
+
+\usepackage{setspace}
+\onehalfspacing % Полуторный интервал
+
+\captionsetup[table]{skip=0pt,singlelinecheck=off, justification=raggedleft}
+\captionsetup[table]{skip=0pt,singlelinecheck=off, justification=centering}
+
+\frenchspacing
+\usepackage{indentfirst} % Красная строка
+
+\usepackage{titlesec}
+\usepackage{xcolor}
+% Названия глав
+\titleformat{\section}{\huge\textmd}{\thesection}{1em}{}
+
+\definecolor{gray35}{gray}{0.35}
+
+\titleformat{\chapter}[hang]{\Huge}{\textcolor{gray35}{\thechapter. }}{0pt}{\huge\scshape}
+
+\titleformat{\section}{\Large}{\textcolor{gray35}\thesection}{20pt}{\Large\scshape}
+\titleformat{\subsection}{\large}{\thesubsection}{20pt}{\large\scshape}
+\titleformat{\subsubsection}{\large}{\thesubsubsection}{20pt}{\large\scshape}
+
+\newcommand*{\undertext}[2]{%
+	\begin{tabular}[t]{@{}c@{}}%
+		#1\\\relax\scriptsize(#2)%
+	\end{tabular}
+}
+
+\emergencystretch 10em
+
+% Настройки введения
+
+\addtocontents{toc}{\setcounter{tocdepth}{3}}
+\addtocontents{toc}{\setcounter{secnumdepth}{3}}
+
+\usepackage{tocloft,lipsum,pgffor}
+
+\addtocontents{toc}{~\hfill\textnormal{Страница}\par}
+
+\renewcommand{\cftpartfont}{\normalfont\textmd}
+
+\addto\captionsrussian{\renewcommand{\contentsname}{Содержание}}
+\renewcommand{\cfttoctitlefont}{\Huge\textmd}
+
+\renewcommand{\cftchapfont}{\normalfont\normalsize}
+\renewcommand{\cftsecfont}{\normalfont\normalsize}
+\renewcommand{\cftsubsecfont}{\normalfont\normalsize}
+\renewcommand{\cftsubsubsecfont}{\normalfont\normalsize}
+
+\renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}}
+
+\usepackage{listings}
+\usepackage{pdflscape}
+\usepackage{everypage}
+\usepackage{xcolor}
+
+%\bibliographystyle{gost780u.bst}
+%
+%\usepackage[backend=biber,
+%%			bibencoding=utf8,
+%%			sorting=nyt,
+%%			maxcitenames=2,
+%			style=gost-numeric-min,
+%%			autolang=other, 
+%%			natbib=true,
+%%			maxnames=99,
+%			uniquename=false]{biblatex}
+
+\usepackage{csquotes} 
+\usepackage[backend=biber,
+			style=gost-numeric,
+			maxcitenames=3,
+			maxbibnames=12,
+			minnames=1,
+			movenames=false,
+			ibidtracker=false,
+			sorting=none,
+			autolang=other]{biblatex}
+			
+\DeclareSourcemap{
+	\maps[datatype=bibtex]{
+		\map{
+			\step[fieldsource=langid, match=russian, final]
+			\step[fieldset=presort, fieldvalue={a}]
+		}
+		\map{
+			\step[fieldsource=langid, notmatch=russian, final]
+			\step[fieldset=presort, fieldvalue={z}]
+		}
+	}
+}
+
+\addbibresource{ref-lib.bib} % База библиографии
+
+\usepackage[pdftex]{hyperref} % Гиперссылки
+\hypersetup{hidelinks}
+
+% Листинги 
+\usepackage{listings}
+
+\definecolor{darkgray}{gray}{0.15}
+
+\definecolor{teal}{rgb}{0.25,0.88,0.73}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{b-red}{rgb}{0.88,0.25,0.41}
+\definecolor{royal-blue}{rgb}{0.25,0.41,0.88}
+
+
+
+% какой то сложный кусок со стак эксчейндж для квадратных скобок
+\makeatletter
+\newenvironment{sqcases}{%
+	\matrix@check\sqcases\env@sqcases
+}{%
+	\endarray\right.%
+}
+\def\env@sqcases{%
+	\let\@ifnextchar\new@ifnextchar
+	\left\lbrack
+	\def\arraystretch{1.2}%
+	\array{@{}l@{\quad}l@{}}%
+}
+\makeatother
+
+% и для матриц
+\makeatletter
+\renewcommand*\env@matrix[1][\arraystretch]{%
+	\edef\arraystretch{#1}%
+	\hskip -\arraycolsep
+	\let\@ifnextchar\new@ifnextchar
+	\array{*\c@MaxMatrixCols c}}
+\makeatother
+
+\usepackage{pdflscape}
+\usepackage{fancyhdr} 
+
+\fancypagestyle{mylandscape}{
+	\fancyhf{} %Clears the header/footer
+	\fancyfoot{% Footer
+		\makebox[\textwidth][r]{% Right
+			\rlap{\hspace{.75cm}% Push out of margin by \footskip
+				\smash{% Remove vertical height
+					\raisebox{6in}{% Raise vertically
+						\rotatebox{90}{\thepage}}}}}}% Rotate counter-clockwise
+	\renewcommand{\headrulewidth}{0pt}% No header rule
+	\renewcommand{\footrulewidth}{0pt}% No footer rule
+}
